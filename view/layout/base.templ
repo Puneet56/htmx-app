@@ -14,8 +14,13 @@ templ Base() {
 			<link rel="stylesheet" href="/assets/styles/dist.css"/>
 			<title>Planner</title>
 			<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+			<script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
 		</head>
-		<body class="sample-transition" hx-boost="true">
+		<body
+			class="sample-transition"
+			hx-boost="true"
+			hx-ext="response-targets"
+		>
 			<main class="">
 				{ children... }
 			</main>

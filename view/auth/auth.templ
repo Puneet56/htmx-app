@@ -17,9 +17,9 @@ templ Login(req types.LoginRequest, err types.LoginError) {
 			id="login-form"
 			hx-post="/auth/login"
 			hx-target="body"
-			hx-error="#login-form"
 			hx-swap="outerHTML"
 			hx-replace-url="/"
+			hx-target-error="#login-form"
 			class="card card-bordered px-4 py-8 border-neutral-content w-96 gap-4"
 		>
 			<h1 class="text-3xl">Login</h1>
@@ -33,7 +33,7 @@ templ Login(req types.LoginRequest, err types.LoginError) {
 					value={ req.Username }
 				/>
 				if err.Username != "" {
-					<p class="text-xs text-error pt-1">{ err.Username }</p>
+					<p class="text-xs text-error pl-2 pt-1">{ err.Username }</p>
 				}
 			</div>
 			<div class="form-control">
