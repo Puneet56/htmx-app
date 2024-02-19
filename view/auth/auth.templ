@@ -1,0 +1,57 @@
+package auth
+
+import (
+	"github.com/Puneet56/planner/view/layout"
+	"github.com/Puneet56/planner/types"
+)
+
+templ Index() {
+	@layout.Base() {
+		@Login(types.LoginRequest{}, types.LoginError{})
+	}
+}
+
+templ Login(req types.LoginRequest, err types.LoginError) {
+	<div class="h-svh flex items-center justify-center">
+		<form
+			id="login-form"
+			hx-post="/auth/login"
+			hx-target="body"
+			hx-error="#login-form"
+			hx-swap="outerHTML"
+			hx-replace-url="/"
+			class="card card-bordered px-4 py-8 border-neutral-content w-96 gap-4"
+		>
+			<h1 class="text-3xl">Login</h1>
+			<div class="form-control">
+				<label for="username" class="label">Username</label>
+				<input
+					type="text"
+					name="username"
+					placeholder="loremipsum123"
+					class="input input-bordered"
+					value={ req.Username }
+				/>
+				if err.Username != "" {
+					<p class="text-xs text-error pt-1">{ err.Username }</p>
+				}
+			</div>
+			<div class="form-control">
+				<label for="password" class="label">Password</label>
+				<input
+					type="password"
+					name="password"
+					placeholder="••••••••"
+					class="input input-bordered"
+					value={ req.Password }
+				/>
+				if  err.Password != "" {
+					<p class="text-xs text-error pl-2 pt-1">{ err.Password }</p>
+				}
+			</div>
+			<div class="form-control">
+				<button type="submit" class="btn btn-primary">Login</button>
+			</div>
+		</form>
+	</div>
+}

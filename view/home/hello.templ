@@ -1,0 +1,19 @@
+package home
+
+import (
+	"github.com/Puneet56/planner/view/layout"
+)
+
+templ Index(s string) {
+	@layout.Base() {
+		<button
+			type="button"
+			class="btn btn-primary"
+			hx-get="/auth/login/form"
+			hx-target="body"
+			hx-push-url="/auth/login"
+		>
+			Hello, { s }
+		</button>
+	}
+}

@@ -1,0 +1,7 @@
+tmp/
+.env
+
+*_templ.go
+
+package-lock.json
+node_modules/
