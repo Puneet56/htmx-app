@@ -45,5 +45,11 @@ func HandleLoginSubmit(c echo.Context) error {
 		return RenderComponent(c, http.StatusUnauthorized, auth.Login(lr, le))
 	}
 
+	c.SetCookie(&http.Cookie{
+		Name:  "username",
+		Value: lr.Username,
+		Path:  "/",
+	})
+
 	return RenderComponent(c, http.StatusOK, home.Index(lr.Username))
 }

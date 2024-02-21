@@ -55,3 +55,11 @@ templ Login(req types.LoginRequest, err types.LoginError) {
 		</form>
 	</div>
 }
+
+templ ClickToLogin() {
+	@layout.Base() {
+		<div class="h-svh flex items-center justify-center">
+			<button class="btn" hx-get="/auth/login" hx-target="body" hx-swap="outerHTML" hx-replace-url="true">Login</button>
+		</div>
+	}
+}

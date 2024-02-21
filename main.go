@@ -14,6 +14,7 @@ func main() {
 	e.Static("/assets", "assets")
 
 	e.GET("/", handler.HandleHomeIndex)
+
 	e.GET("/auth/login", handler.HandleLoginIndex)
 	e.GET("/auth/login/form", handler.HandleGetLoginForm)
 	e.POST("/auth/login", handler.HandleLoginSubmit)
