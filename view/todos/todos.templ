@@ -1,0 +1,91 @@
+package view
+
+import "github.com/Puneet56/planner/view/layout"
+import "github.com/Puneet56/planner/types"
+import "strconv"
+import "fmt"
+
+var todos = []types.Todo{
+	{ID: 1, Title: "Todo 1", Category: "Work"},
+	{ID: 2, Title: "Todo 2", Category: "Study"},
+	{ID: 3, Title: "Todo 3", Category: "Health"},
+	{ID: 4, Title: "Todo 4", Category: "Daily chores"},
+}
+
+templ TodoIndex() {
+	@layout.Base("Todos") {
+		<div class="p-4">
+			<div class="flex items-center justify-between">
+				<h1 class="text-3xl font-semibold mb-2">Todo List</h1>
+				<button
+					type="button"
+					class="btn btn-secondary"
+					onclick="todos_modal.showModal()"
+				>
+					Add Todo
+				</button>
+			</div>
+			<div class="overflow-x-auto">
+				@TodosTable()
+				<dialog id="todos_modal" class="modal">
+					<div class="modal-box">
+						<h3 class="font-bold text-lg">Add Todo</h3>
+						@AddTodoForm()
+					</div>
+					<form method="dialog" class="modal-backdrop">
+						<button>close</button>
+					</form>
+				</dialog>
+			</div>
+		</div>
+	}
+}
+
+templ AddTodoForm() {
+	<form
+		id="todo-form"
+		hx-post="/todos"
+		class="space-y-4"
+		hx-target="#new-todo"
+		hx-swap="outerHTML"
+		hx-on::after-request="todos_modal.close()"
+	>
+		<div class="form-control">
+			<label for="title" class="label">Title</label>
+			<input type="text" name="title" placeholder="Enter title" class="input input-bordered"/>
+		</div>
+		<div class="form-control">
+			<label for="category" class="label">Category</label>
+			<input type="text" name="category" placeholder="Enter category" class="input input-bordered"/>
+		</div>
+		<div class="form-control">
+			<button type="submit" class="btn btn-primary">Create</button>
+		</div>
+	</form>
+}
+
+templ TodosTable() {
+	<table class="table table-zebra">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Category</th>
+			</tr>
+		</thead>
+		<tbody>
+			for _, todo := range todos {
+				@TableRow(todo)
+			}
+			<tr id="new-todo"></tr>
+		</tbody>
+	</table>
+}
+
+templ TableRow(todo types.Todo) {
+	<tr id={ fmt.Sprintf("todo-%d", todo.ID) }>
+		<td>{ strconv.Itoa(todo.ID) }</td>
+		<td>{ todo.Title }</td>
+		<td>{ todo.Category }</td>
+	</tr>
+}

@@ -19,5 +19,8 @@ func main() {
 	e.GET("/auth/login/form", handler.HandleGetLoginForm)
 	e.POST("/auth/login", handler.HandleLoginSubmit)
 
+	e.GET("/todos", handler.HandleGetTodos)
+	e.POST("/todos", handler.HandleCreateTodo)
+
 	e.Logger.Fatal(e.Start(":1323"))
 }

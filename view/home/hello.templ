@@ -5,15 +5,10 @@ import (
 )
 
 templ Index(s string) {
-	@layout.Base() {
-		<button
-			type="button"
-			class="btn btn-primary"
-			hx-get="/auth/login/form"
-			hx-target="body"
-			hx-push-url="/auth/login"
-		>
-			Hello, { s }
-		</button>
+	@layout.Base("Home") {
+		<div class="container">
+			<h1>Home</h1>
+			<p>Welcome to the home page</p>
+		</div>
 	}
 }
