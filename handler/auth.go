@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/Puneet56/planner/types"
@@ -10,6 +11,15 @@ import (
 )
 
 func HandleLoginIndex(c echo.Context) error {
+	fmt.Println("HandleLoginIndex")
+
+	cookie, err := c.Cookie("username")
+
+	if err == nil {
+		c.Logger().Debugf("Cookie: %v", cookie)
+		return c.Redirect(http.StatusFound, "/")
+	}
+
 	component := auth.Index()
 	return RenderComponent(c, http.StatusOK, component)
 }
@@ -51,5 +61,20 @@ func HandleLoginSubmit(c echo.Context) error {
 		Path:  "/",
 	})
 
-	return RenderComponent(c, http.StatusOK, home.Index(lr.Username))
+	user := &types.User{
+		Username: lr.Username,
+	}
+
+	return RenderComponent(c, http.StatusOK, home.Index(user))
+}
+
+func HandleLogout(c echo.Context) error {
+	c.SetCookie(&http.Cookie{
+		Name:   "username",
+		Value:  "",
+		Path:   "/",
+		MaxAge: -1,
+	})
+
+	return c.Redirect(http.StatusFound, "/auth/login")
 }

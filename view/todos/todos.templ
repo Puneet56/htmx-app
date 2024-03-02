@@ -1,9 +1,9 @@
 package view
 
-import "github.com/Puneet56/planner/view/layout"
 import "github.com/Puneet56/planner/types"
 import "strconv"
 import "fmt"
+import "github.com/Puneet56/planner/view/layout"
 
 var todos = []types.Todo{
 	{ID: 1, Title: "Todo 1", Category: "Work"},
@@ -13,7 +13,7 @@ var todos = []types.Todo{
 }
 
 templ TodoIndex() {
-	@layout.Base("Todos") {
+	@layout.Base("Todos", nil) {
 		<div class="p-4">
 			<div class="flex items-center justify-between">
 				<h1 class="text-3xl font-semibold mb-2">Todo List</h1>
@@ -21,6 +21,9 @@ templ TodoIndex() {
 					type="button"
 					class="btn btn-secondary"
 					onclick="todos_modal.showModal()"
+					hx-get="/todos/new"
+					hx-target="#todo-form"
+					hx-swap="outerHTML"
 				>
 					Add Todo
 				</button>
@@ -32,9 +35,12 @@ templ TodoIndex() {
 						<h3 class="font-bold text-lg">Add Todo</h3>
 						@AddTodoForm()
 					</div>
-					<form method="dialog" class="modal-backdrop">
+					<div
+						class="modal-backdrop"
+						onclick="todos_modal.close()"
+					>
 						<button>close</button>
-					</form>
+					</div>
 				</dialog>
 			</div>
 		</div>
@@ -88,4 +94,9 @@ templ TableRow(todo types.Todo) {
 		<td>{ todo.Title }</td>
 		<td>{ todo.Category }</td>
 	</tr>
+}
+
+templ NewTodoRow(todo types.Todo) {
+	@TableRow(todo)
+	<tr id="new-todo"></tr>
 }

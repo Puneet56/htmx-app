@@ -1,11 +1,12 @@
 package home
 
 import (
+	"github.com/Puneet56/planner/types"
 	"github.com/Puneet56/planner/view/layout"
 )
 
-templ Index(s string) {
-	@layout.Base("Home") {
+templ Index(u *types.User) {
+	@layout.Base("Home", u) {
 		<div class="container">
 			<h1>Home</h1>
 			<p>Welcome to the home page</p>

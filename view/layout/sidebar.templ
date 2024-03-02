@@ -1,5 +1,7 @@
 package layout
 
+import "github.com/Puneet56/planner/types"
+
 var menu = []struct {
 	Name string
 	Link string
@@ -8,7 +10,7 @@ var menu = []struct {
 	{"Todos", "/todos"},
 }
 
-templ Sidebar(activeItem string) {
+templ Sidebar(activeItem string, u *types.User) {
 	<div class="drawer drawer-open">
 		<input id="my-drawer" type="checkbox" class="drawer-toggle"/>
 		<div class="drawer-content flex flex-col">
@@ -18,7 +20,23 @@ templ Sidebar(activeItem string) {
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-6 h-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
 					</label>
 				</div>
-				<div class="flex-1 px-2 mx-2">{ activeItem }</div>
+				<div class="flex-1 flex items-center justify-between px-2 mx-2">
+					{ activeItem }
+					<div>
+						<div class="dropdown dropdown-end">
+							<div tabindex="0" role="button" class="btn btn-ghost rounded-btn">
+								<div class="avatar">
+									<div class="w-8 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+										<img src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"/>
+									</div>
+								</div>
+							</div>
+							<ul tabindex="0" class="menu dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+								<li><a href="/auth/logout">Logout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
 			</div>
 			<!-- main content -->
 			{ children... }

@@ -1,6 +1,8 @@
 package layout
 
-templ Base(activeItem string) {
+import "github.com/Puneet56/planner/types"
+
+templ Base(activeItem string, u *types.User) {
 	<!DOCTYPE html>
 	<html lang="en" data-theme="dark">
 		<head>
@@ -15,12 +17,16 @@ templ Base(activeItem string) {
 			<title>Planner</title>
 			<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 			<script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+			<script src="https://unpkg.com/htmx.org/dist/ext/debug.js"></script>
 			<script src="https://unpkg.com/htmx.org/dist/ext/response-targets.js"></script>
 		</head>
 		<body class="sample-transition" hx-boost="true" hx-ext="response-targets">
-			@Sidebar(activeItem) {
+			@Sidebar(activeItem, u) {
 				{ children... }
 			}
+			<script>
+					htmx.logAll();
+			</script>
 		</body>
 	</html>
 }

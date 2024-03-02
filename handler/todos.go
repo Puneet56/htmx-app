@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"math/rand"
 	"net/http"
 
 	"github.com/Puneet56/planner/types"
@@ -14,11 +15,16 @@ func HandleGetTodos(c echo.Context) error {
 }
 
 func HandleCreateTodo(c echo.Context) error {
-	component := view.TableRow(types.Todo{
-		ID:        5,
+	component := view.NewTodoRow(types.Todo{
+		ID:        rand.Int(),
 		Title:     "Todo 5",
 		Category:  "Work",
 		Completed: false,
 	})
+
 	return RenderComponent(c, http.StatusOK, component)
+}
+
+func HandleAddTodoForm(c echo.Context) error {
+	return RenderComponent(c, http.StatusOK, view.AddTodoForm())
 }
