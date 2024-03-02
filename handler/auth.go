@@ -1,7 +1,6 @@
 package handler
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/Puneet56/planner/types"
@@ -11,12 +10,9 @@ import (
 )
 
 func HandleLoginIndex(c echo.Context) error {
-	fmt.Println("HandleLoginIndex")
-
-	cookie, err := c.Cookie("username")
+	_, err := c.Cookie("username")
 
 	if err == nil {
-		c.Logger().Debugf("Cookie: %v", cookie)
 		return c.Redirect(http.StatusFound, "/")
 	}
 

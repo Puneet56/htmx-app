@@ -9,8 +9,6 @@ import (
 
 func Auth(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(c echo.Context) error {
-		c.Logger().Error("Path: %v", c.Path())
-
 		cookie, err := c.Cookie("username")
 
 		var user types.User
