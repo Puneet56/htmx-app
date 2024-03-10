@@ -33,7 +33,7 @@ templ TodoIndex() {
 				<dialog id="todos_modal" class="modal">
 					<div class="modal-box">
 						<h3 class="font-bold text-lg">Add Todo</h3>
-						@AddTodoForm()
+						@AddTodoForm(nil)
 					</div>
 					<div
 						class="modal-backdrop"
@@ -47,7 +47,7 @@ templ TodoIndex() {
 	}
 }
 
-templ AddTodoForm() {
+templ AddTodoForm(t *types.Todo) {
 	<form
 		id="todo-form"
 		hx-post="/todos"

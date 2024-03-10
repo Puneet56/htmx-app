@@ -26,5 +26,16 @@ func HandleCreateTodo(c echo.Context) error {
 }
 
 func HandleAddTodoForm(c echo.Context) error {
-	return RenderComponent(c, http.StatusOK, view.AddTodoForm())
+	return RenderComponent(c, http.StatusOK, view.AddTodoForm(nil))
+}
+
+func HandleEditTodoForm(c echo.Context) error {
+	t := types.Todo{
+		ID:        1,
+		Title:     "Todo 1",
+		Category:  "Work",
+		Completed: false,
+	}
+
+	return RenderComponent(c, http.StatusOK, view.AddTodoForm(&t))
 }

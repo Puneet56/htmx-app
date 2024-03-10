@@ -15,8 +15,9 @@ func main() {
 
 	e.Use(middleware.LoggerWithConfig(
 		middleware.LoggerConfig{
-			Format: "${time_rfc3339} ${status} ${path} ${method}\n",
-			Output: os.Stdout,
+			Format:           "${time_rfc3339} ${status} ${path} ${method}\n",
+			Output:           os.Stdout,
+			CustomTimeFormat: "2006-01-02 15:04:05",
 		},
 	))
 
@@ -31,9 +32,11 @@ func main() {
 	pr.Use(appMiddleware.Auth)
 
 	pr.GET("", handler.HandleHomeIndex)
+
 	pr.GET("todos", handler.HandleGetTodos)
 	pr.POST("todos", handler.HandleCreateTodo)
 	pr.GET("todos/new", handler.HandleAddTodoForm)
+	pr.GET("todos/edit/:id", handler.HandleEditTodoForm)
 
 	e.Logger.Fatal(e.Start(":1323"))
 }
