@@ -15,7 +15,7 @@ func main() {
 
 	e.Use(middleware.LoggerWithConfig(
 		middleware.LoggerConfig{
-			Format:           "${time_rfc3339} ${status} ${path} ${method}\n",
+			Format:           "${time_custom} ${path} ${method} ${status}\n",
 			Output:           os.Stdout,
 			CustomTimeFormat: "2006-01-02 15:04:05",
 		},
