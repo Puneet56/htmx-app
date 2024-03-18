@@ -1,18 +1,10 @@
 package view
 
-import "github.com/Puneet56/planner/types"
-import "strconv"
 import "fmt"
 import "github.com/Puneet56/planner/view/layout"
+import "github.com/Puneet56/planner/planner_orm"
 
-var todos = []types.Todo{
-	{ID: 1, Title: "Todo 1", Category: "Work"},
-	{ID: 2, Title: "Todo 2", Category: "Study"},
-	{ID: 3, Title: "Todo 3", Category: "Health"},
-	{ID: 4, Title: "Todo 4", Category: "Daily chores"},
-}
-
-templ TodoIndex() {
+templ TodoIndex(todos []planner_orm.Todo) {
 	@layout.Base("Todos", nil) {
 		<div class="p-4">
 			<div class="flex items-center justify-between">
@@ -29,11 +21,11 @@ templ TodoIndex() {
 				</button>
 			</div>
 			<div class="overflow-x-auto">
-				@TodosTable()
+				@TodosTable(todos)
 				<dialog id="todos_modal" class="modal">
 					<div class="modal-box">
 						<h3 class="font-bold text-lg">Add Todo</h3>
-						@AddTodoForm(nil)
+						@AddTodoForm(planner_orm.Todo{})
 					</div>
 					<div
 						class="modal-backdrop"
@@ -47,7 +39,7 @@ templ TodoIndex() {
 	}
 }
 
-templ AddTodoForm(t *types.Todo) {
+templ AddTodoForm(t planner_orm.Todo) {
 	<form
 		id="todo-form"
 		hx-post="/todos"
@@ -70,7 +62,7 @@ templ AddTodoForm(t *types.Todo) {
 	</form>
 }
 
-templ TodosTable() {
+templ TodosTable(todos []planner_orm.Todo) {
 	<table class="table table-zebra">
 		<thead>
 			<tr>
@@ -88,15 +80,15 @@ templ TodosTable() {
 	</table>
 }
 
-templ TableRow(todo types.Todo) {
+templ TableRow(todo planner_orm.Todo) {
 	<tr id={ fmt.Sprintf("todo-%d", todo.ID) }>
-		<td>{ strconv.Itoa(todo.ID) }</td>
+		<td>{ fmt.Sprintf("%d", todo.ID) }</td>
 		<td>{ todo.Title }</td>
-		<td>{ todo.Category }</td>
+		<td>{ todo.Description.String }</td>
 	</tr>
 }
 
-templ NewTodoRow(todo types.Todo) {
+templ NewTodoRow(todo planner_orm.Todo) {
 	@TableRow(todo)
 	<tr id="new-todo"></tr>
 }

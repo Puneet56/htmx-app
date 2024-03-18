@@ -1,0 +1,9 @@
+version: "2"
+sql:
+  - engine: "mysql"
+    queries: "./sqlc/queries"
+    schema: "./sqlc/schemas"
+    gen:
+      go:
+        package: "planner_orm"
+        out: "planner_orm"

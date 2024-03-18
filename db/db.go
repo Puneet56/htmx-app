@@ -2,30 +2,26 @@ package db
 
 import (
 	"database/sql"
-	"fmt"
 	"log"
 
-	_ "github.com/go-sql-driver/mysql"
+	"github.com/Puneet56/planner/planner_orm"
 )
 
-var db *sql.DB
+var db *planner_orm.Queries
 
-func init() {
-	var err error
+func GetQuery() *planner_orm.Queries {
 
-	db, err = sql.Open("mysql", "root@tcp(127.0.0.1:3306)/planner")
+	if db != nil {
+		return db
+	}
+
+	database, err := sql.Open("mysql", "root@tcp(127.0.0.1:3306)/planner")
+
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	err = db.Ping()
-	if err != nil {
-		log.Fatal(err)
-	}
+	db = planner_orm.New(database)
 
-	fmt.Println("Successfully connected to MySQL database")
-}
-
-func GetDB() *sql.DB {
 	return db
 }

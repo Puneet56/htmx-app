@@ -1,0 +1,7 @@
+
+CREATE TABLE todos (
+  id SERIAL PRIMARY KEY,
+  title TEXT NOT NULL,
+  `description` TEXT NULL DEFAULT '',
+  completed BOOLEAN NOT NULL DEFAULT FALSE
+);
