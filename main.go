@@ -35,10 +35,5 @@ func main() {
 
 	pr.GET("", handler.HandleHomeIndex)
 
-	pr.GET("todos", handler.HandleGetTodos)
-	pr.POST("todos", handler.HandleCreateTodo)
-	pr.GET("todos/new", handler.HandleAddTodoForm)
-	pr.GET("todos/edit/:id", handler.HandleEditTodoForm)
-
 	e.Logger.Fatal(e.Start(":1323"))
 }

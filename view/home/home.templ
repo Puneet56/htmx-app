@@ -8,8 +8,37 @@ import (
 templ Index(u *types.User) {
 	@layout.Base("Home", u) {
 		<div class="container">
-			<h1>Home</h1>
-			<p>Welcome to the home page</p>
+			@TasksTable()
 		</div>
 	}
+}
+
+templ TasksTable() {
+	<table class="table table-zebra">
+		<thead>
+			<tr>
+				<th>Task</th>
+				<th>Sunday</th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+				<th>Saturday</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Task 1</td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+				<td><input type="checkbox"/></td>
+			</tr>
+			<tr id="new-todo"></tr>
+		</tbody>
+	</table>
 }
